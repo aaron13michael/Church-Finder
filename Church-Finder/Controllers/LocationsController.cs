@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Church_Finder.Models;
 using Church_Finder.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -17,9 +16,9 @@ namespace Church_Finder.Controllers
         }
 
         // GET: Locations
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string LocationReligion, string searchString)
         {
-            return View(await _service.GetAsync());
+            return View(await _service.GetSearchResults(LocationReligion, searchString));
         }
 
         // GET: Locations/Details/5
@@ -54,22 +53,21 @@ namespace Church_Finder.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(location);
-                await _context.SaveChangesAsync();
+                await _service.CreateAsync(location);
                 return RedirectToAction(nameof(Index));
             }
             return View(location);
         }
 
         // GET: Locations/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var location = await _context.Location.FindAsync(id);
+            var location = await _service.GetAsync(id);
             if (location == null)
             {
                 return NotFound();
@@ -82,7 +80,7 @@ namespace Church_Finder.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Religion,Sect,Members,FoundedDate,NumServices,Address1,Address2,City,StateProvince,Zip,Missions,CommunityGroups,MarriageCounseling,ChildCare,YouthMinistry,YoungAdultMinistry,OnlineService")] Location location)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,Name,Religion,Sect,Members,FoundedDate,NumServices,Address1,Address2,City,StateProvince,Zip,Missions,CommunityGroups,MarriageCounseling,ChildCare,YouthMinistry,YoungAdultMinistry,OnlineService")] Location location)
         {
             if (id != location.Id)
             {
@@ -93,12 +91,11 @@ namespace Church_Finder.Controllers
             {
                 try
                 {
-                    _context.Update(location);
-                    await _context.SaveChangesAsync();
+                    _service.Update(id, location);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!LocationExists(location.Id))
+                    if (!_service.LocationExists(location.Id))
                     {
                         return NotFound();
                     }
@@ -113,15 +110,14 @@ namespace Church_Finder.Controllers
         }
 
         // GET: Locations/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var location = await _context.Location
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var location = await _service.GetAsync(id);
             if (location == null)
             {
                 return NotFound();
@@ -133,17 +129,11 @@ namespace Church_Finder.Controllers
         // POST: Locations/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var location = await _context.Location.FindAsync(id);
-            _context.Location.Remove(location);
-            await _context.SaveChangesAsync();
+            var location = await _service.GetAsync(id);
+            _service.Remove(location);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool LocationExists(int id)
-        {
-            return _context.Location.Any(e => e.Id == id);
         }
     }
 }

@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Church_Finder.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 
@@ -17,6 +20,31 @@ namespace Church_Finder.Services
             _locations = database.GetCollection<Location>("Locations");
         }
 
+        public async Task<LocationReligionViewModel> GetSearchResults(string religion, string searchString)
+        {
+            var builder = Builders<Location>.Filter;
+            var filter = builder.Empty;
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                filter = builder.In("Name", searchString);
+            }
+            if (!string.IsNullOrEmpty(religion))
+            {
+                filter = filter & builder.Eq("Religion", religion);
+            }
+
+            var fields = Builders<Location>.Projection.Include(l => l.Religion);
+            var relQuery = from l in _locations.Find(l => true).Project<Location>(fields).ToEnumerable()
+                           orderby l.Religion
+                           select l.Religion;
+            var locationReligionVM = new LocationReligionViewModel
+            {
+                Religions = new SelectList(relQuery.Distinct().ToList()),
+                Locations = await _locations.Find(filter).ToListAsync()
+            };
+            return locationReligionVM;
+        }
+
         public async Task<List<Location>> GetAsync()
         {
             return await _locations.Find(location => true).ToListAsync();
@@ -27,25 +55,29 @@ namespace Church_Finder.Services
             return await _locations.Find(location => location.Id == id).FirstOrDefaultAsync();
         }
 
-        public Location Create(Location location)
+        public async Task<Location> CreateAsync(Location location)
         {
-            _locations.InsertOne(location);
+            await _locations.InsertOneAsync(location);
             return location;
         }
 
-        public void Update(string id, Location locationIn)
+        public async void Update(string id, Location locationIn)
         {
-            _locations.ReplaceOne(location => location.Id == id, locationIn);
+            await _locations.ReplaceOneAsync(location => location.Id == id, locationIn);
         }
 
-        public void Remove(Location locationIn)
+        public async void Remove(Location locationIn)
         {
-            _locations.DeleteOne(location => location.Id == locationIn.Id);
+            await _locations.DeleteOneAsync(location => location.Id == locationIn.Id);
         }
 
-        public void Remove(string id)
+        public async void Remove(string id)
         {
-            _locations.DeleteOne(location => location.Id == id);
+            await _locations.DeleteOneAsync(location => location.Id == id);
+        }
+        public bool LocationExists(string id)
+        {
+            return _locations.CountDocuments(Location => Location.Id == id) > 0;
         }
     }
 }

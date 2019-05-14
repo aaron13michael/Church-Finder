@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Church_Finder.Models.Location>
+﻿@model Church_Finder.Models.LocationReligionViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -9,68 +9,77 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<form asp-controller="Locations" asp-action="Index">
+    <p>
+        <select asp-for="LocationReligion" asp-items="Model.Religions">
+            <option value="">All</option>
+        </select>
+        Title: <input type="text" name="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.Locations[0].Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Religion)
+                @Html.DisplayNameFor(model => model.Locations[0].Religion)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Sect)
+                @Html.DisplayNameFor(model => model.Locations[0].Sect)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Members)
+                @Html.DisplayNameFor(model => model.Locations[0].Members)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FoundedDate)
+                @Html.DisplayNameFor(model => model.Locations[0].FoundedDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NumServices)
+                @Html.DisplayNameFor(model => model.Locations[0].NumServices)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Address1)
+                @Html.DisplayNameFor(model => model.Locations[0].Address1)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Address2)
+                @Html.DisplayNameFor(model => model.Locations[0].Address2)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.City)
+                @Html.DisplayNameFor(model => model.Locations[0].City)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StateProvince)
+                @Html.DisplayNameFor(model => model.Locations[0].StateProvince)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Zip)
+                @Html.DisplayNameFor(model => model.Locations[0].Zip)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Missions)
+                @Html.DisplayNameFor(model => model.Locations[0].Missions)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CommunityGroups)
+                @Html.DisplayNameFor(model => model.Locations[0].CommunityGroups)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MarriageCounseling)
+                @Html.DisplayNameFor(model => model.Locations[0].MarriageCounseling)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ChildCare)
+                @Html.DisplayNameFor(model => model.Locations[0].ChildCare)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.YouthMinistry)
+                @Html.DisplayNameFor(model => model.Locations[0].YouthMinistry)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.YoungAdultMinistry)
+                @Html.DisplayNameFor(model => model.Locations[0].YoungAdultMinistry)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.OnlineService)
+                @Html.DisplayNameFor(model => model.Locations[0].OnlineService)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Locations) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
