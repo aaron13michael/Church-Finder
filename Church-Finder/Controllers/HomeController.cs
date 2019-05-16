@@ -1,17 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using System.Diagnostics;
 using Church_Finder.Models;
+using Church_Finder.Services;
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Church_Finder.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly LocationService _service;
+
+        public HomeController(LocationService service)
+        {
+            _service = service;
+        }
         public IActionResult Index()
         {
+            ViewBag.Religions = new SelectList(_service.getReligionsList());
             return View();
         }
 

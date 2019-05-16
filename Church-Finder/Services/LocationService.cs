@@ -26,20 +26,15 @@ namespace Church_Finder.Services
             var filter = builder.Empty;
             if (!string.IsNullOrEmpty(searchString))
             {
-                filter = builder.In("Name", searchString);
+                filter = builder.Where(l => l.Name.Contains(searchString));
             }
             if (!string.IsNullOrEmpty(religion))
             {
                 filter = filter & builder.Eq("Religion", religion);
             }
-
-            var fields = Builders<Location>.Projection.Include(l => l.Religion);
-            var relQuery = from l in _locations.Find(l => true).Project<Location>(fields).ToEnumerable()
-                           orderby l.Religion
-                           select l.Religion;
             var locationReligionVM = new LocationReligionViewModel
             {
-                Religions = new SelectList(relQuery.Distinct().ToList()),
+                Religions = new SelectList(getReligionsList()),
                 Locations = await _locations.Find(filter).ToListAsync()
             };
             return locationReligionVM;
@@ -78,6 +73,13 @@ namespace Church_Finder.Services
         public bool LocationExists(string id)
         {
             return _locations.CountDocuments(Location => Location.Id == id) > 0;
+        }
+        public List<string> getReligionsList()
+        {
+            var relQuery = from l in _locations.Find(l => true).ToEnumerable()
+                           orderby l.Religion
+                           select l.Religion;
+            return relQuery.Distinct().ToList();
         }
     }
 }

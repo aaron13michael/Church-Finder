@@ -1,8 +1,13 @@
-﻿@{
+﻿@model Church_Finder.Models.LocationReligionViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <form asp-controller="Locations" asp-action="Index" method="post">
+        <select asp-for="LocationReligion" asp-items="@ViewBag.Religions"></select>
+        <input type="text" name="SearchString" placeholder="enter zip or city,state" />
+        <input type="submit" value="search"/>
+    </form>
 </div>
