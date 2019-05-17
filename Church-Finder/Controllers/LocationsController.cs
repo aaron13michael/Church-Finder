@@ -2,6 +2,7 @@
 using Church_Finder.Models;
 using Church_Finder.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace Church_Finder.Controllers
@@ -18,6 +19,8 @@ namespace Church_Finder.Controllers
         // GET: Locations
         public async Task<IActionResult> Index(string LocationReligion, string searchString)
         {
+            ViewBag.SearchHeader = string.IsNullOrEmpty(searchString) ? "Results" : $"Results for {searchString}";
+            ViewBag.Religions = new SelectList(_service.getReligionsList());
             return View(await _service.GetSearchResults(LocationReligion, searchString));
         }
 

@@ -4,10 +4,6 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <form asp-controller="Locations" asp-action="Index" method="post">
-        <select asp-for="LocationReligion" asp-items="@ViewBag.Religions"></select>
-        <input type="text" name="SearchString" placeholder="enter zip or city,state" />
-        <input type="submit" value="search"/>
-    </form>
+    <img id="home-logo" class="mb-5" src="~/img/logo.png" asp-append-version="true" />
+    <partial name="_BasicSearch" />
 </div>

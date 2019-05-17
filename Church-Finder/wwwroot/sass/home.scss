@@ -1,2 +1,27 @@
-﻿body {
+﻿@import "variables.scss";
+
+#home-logo {
+    width: 400px;
+}
+#home-form {
+    .form-group {
+        width: 100%;
+    }
+
+    input[name="SearchString"] {
+        width: 70%;
+        border: 1px solid lightgrey;
+        box-shadow: rgba(235, 235, 235, 0.5) 0px 2px;
+        padding-left: 15px;
+    }
+
+    input[type="submit"] {
+        transition: background-color ease-in-out 0.2s, color ease-in-out 0.2s;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background-color: $btn-blue;
+        color: white;
+    }
 }

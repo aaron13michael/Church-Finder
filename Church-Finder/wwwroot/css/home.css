@@ -1,0 +1,16 @@
+#home-logo {
+  width: 400px; }
+
+#home-form .form-group {
+  width: 100%; }
+#home-form input[name="SearchString"] {
+  width: 70%;
+  border: 1px solid lightgrey;
+  box-shadow: rgba(235, 235, 235, 0.5) 0px 2px;
+  padding-left: 15px; }
+#home-form input[type="submit"] {
+  transition: background-color ease-in-out 0.2s, color ease-in-out 0.2s;
+  cursor: pointer; }
+#home-form input[type="submit"]:hover {
+  background-color: dodgerblue;
+  color: white; }

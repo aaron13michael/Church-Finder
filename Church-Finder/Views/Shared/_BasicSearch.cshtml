@@ -1,0 +1,12 @@
+﻿@model Church_Finder.Models.LocationReligionViewModel
+
+<form id="home-form" class="form-inline" asp-controller="Locations" asp-action="Index" method="post">
+    <div class="form-group">
+        <select class="form-control mr-4" asp-for="LocationReligion" asp-items="@ViewBag.Religions">
+            <option value="" selected>Religion</option>
+        </select>
+        <input class="form-control form-control-plaintext form-control-lg mr-2" type="text" name="SearchString" placeholder="enter zip or city,state" />
+        <input class="form-control" type="submit" value="search" />
+    </div>
+</form>
+

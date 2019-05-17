@@ -1,23 +1,15 @@
 ﻿@model Church_Finder.Models.LocationReligionViewModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Search Results";
 }
 
-<h1>Index</h1>
+<h1>@ViewBag.SearchHeader</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<form asp-controller="Locations" asp-action="Index">
-    <p>
-        <select asp-for="LocationReligion" asp-items="Model.Religions">
-            <option value="">All</option>
-        </select>
-        Title: <input type="text" name="SearchString" />
-        <input type="submit" value="Filter" />
-    </p>
-</form>
+<partial name="_BasicSearch" />
 <table class="table">
     <thead>
         <tr>

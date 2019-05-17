@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Driver.GeoJsonObjectModel;
 
 namespace Church_Finder.Models
 {
@@ -40,7 +41,7 @@ namespace Church_Finder.Models
         [BsonElement("Address1"), BsonRequired]
         public string Address1 { get; set; }
 
-        [BsonElement("Address2"), BsonRequired]
+        [BsonElement("Address2")]
         public string Address2 { get; set; }
 
         [BsonElement("City"), BsonRequired]
@@ -51,6 +52,10 @@ namespace Church_Finder.Models
 
         [BsonElement("Zip"), BsonRequired]
         public string Zip { get; set; }
+
+        //Coordinates
+        [BsonElement("Coordinates"), BsonRepresentation(BsonType.Document)]
+        public GeoJsonPoint<GeoJson2DGeographicCoordinates> Coordinates { get; set; }
 
         // Services available
         [BsonRepresentation(BsonType.Boolean), BsonDefaultValue(false)]
