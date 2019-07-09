@@ -10,129 +10,23 @@
     <a asp-action="Create">Create New</a>
 </p>
 <partial name="_BasicSearch" />
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Locations[0].Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Locations[0].Religion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Locations[0].Sect)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Locations[0].Members)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Locations[0].FoundedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Locations[0].NumServices)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Locations[0].Address1)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Locations[0].Address2)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Locations[0].City)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Locations[0].StateProvince)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Locations[0].Zip)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Locations[0].Missions)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Locations[0].CommunityGroups)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Locations[0].MarriageCounseling)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Locations[0].ChildCare)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Locations[0].YouthMinistry)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Locations[0].YoungAdultMinistry)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Locations[0].OnlineService)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Locations) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Religion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Sect)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Members)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FoundedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumServices)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address1)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address2)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.City)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StateProvince)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Zip)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Missions)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CommunityGroups)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MarriageCounseling)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ChildCare)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.YouthMinistry)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.YoungAdultMinistry)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OnlineService)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div id="locations-grid">
+    @foreach (var item in Model.Locations)
+    {
+        <div class="location-block">
+            <p>
+                <img asp-append-version="true" src="@item.Image" /><br/>
+                <a asp-action="Edit" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a><br />
+                @Html.DisplayFor(modelItem => item.Address1) <br />
+                @{
+                    if (!string.IsNullOrEmpty(item.Address2))
+                    {
+                        Html.DisplayFor(modelItem => item.Address2); <br />
+                    }
+                }
+                @Html.DisplayFor(modelItem => item.City), @Html.DisplayFor(modelItem => item.StateProvince) <br />
+                @Html.DisplayFor(modelItem => item.Zip)<br />
+            </p>
+        </div>
+    }
+</div>

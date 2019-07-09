@@ -2,10 +2,12 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Church_Finder.Models;
+using GoogleMaps.LocationServices;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
+using MongoDB.Driver.GeoJsonObjectModel;
 
 namespace Church_Finder.Services
 {
@@ -52,6 +54,26 @@ namespace Church_Finder.Services
 
         public async Task<Location> CreateAsync(Location location)
         {
+            AddressData address = new AddressData
+            {
+                Address = location.Address1,
+                City = location.City,
+                State = location.StateProvince,
+                Country = "United States",
+                Zip = location.Zip
+            };
+            try
+            {
+                string apikey = System.Environment.GetEnvironmentVariable("GEO_API_KEY");
+                var gls = new GoogleLocationService(apikey);
+                MapPoint coordinates = gls.GetLatLongFromAddress(address);
+                var geoJsonCoordinates = new GeoJson2DGeographicCoordinates(coordinates.Longitude, coordinates.Latitude);
+                location.Coordinates = new GeoJsonPoint<GeoJson2DGeographicCoordinates>(geoJsonCoordinates);
+            }
+            catch(System.Net.WebException ex)
+            {
+                System.Console.WriteLine("Error getting coordinates {0}", ex.Message);
+            }
             await _locations.InsertOneAsync(location);
             return location;
         }

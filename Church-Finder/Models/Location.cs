@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
@@ -6,7 +7,7 @@ using MongoDB.Driver.GeoJsonObjectModel;
 
 namespace Church_Finder.Models
 {
-    public class Location
+    public partial class Location
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
@@ -36,25 +37,30 @@ namespace Church_Finder.Models
         [BsonElement("NumServices")]
         public int NumServices { get; set; }
 
+        [DataType(DataType.ImageUrl), BsonDefaultValue("img/logo.png")]
+        [BsonElement("Image")]
+        public string Image { get; set; }
+
 
         // Address fields
-        [BsonElement("Address1"), BsonRequired]
+        [BsonElement("Address1"), DisplayName("Address Line 1"), BsonRequired]
         public string Address1 { get; set; }
 
-        [BsonElement("Address2")]
+        [BsonElement("Address2"), DisplayName("Address line 2")]
         public string Address2 { get; set; }
 
-        [BsonElement("City"), BsonRequired]
+        [BsonElement("City"), DisplayName("City"), BsonRequired]
         public string City { get; set; }
 
-        [BsonElement("StateProvince"), BsonRequired]
+        [BsonElement("StateProvince"), DisplayName("State/Province"), BsonRequired]
         public string StateProvince { get; set; }
+
 
         [BsonElement("Zip"), BsonRequired]
         public string Zip { get; set; }
 
         //Coordinates
-        [BsonElement("Coordinates"), BsonRepresentation(BsonType.Document)]
+        [BsonElement("Coordinates")]
         public GeoJsonPoint<GeoJson2DGeographicCoordinates> Coordinates { get; set; }
 
         // Services available
@@ -63,27 +69,27 @@ namespace Church_Finder.Models
         public bool Missions { get; set; }
 
         [BsonRepresentation(BsonType.Boolean), BsonDefaultValue(false)]
-        [BsonElement("CommunityGroups")]
+        [BsonElement("CommunityGroups"), DisplayName("Community Groups")]
         public bool CommunityGroups { get; set; }
 
         [BsonRepresentation(BsonType.Boolean), BsonDefaultValue(false)]
-        [BsonElement("MarriageCounseling")]
+        [BsonElement("MarriageCounseling"), DisplayName("Marriage Counseling")]
         public bool MarriageCounseling { get; set; }
 
         [BsonRepresentation(BsonType.Boolean), BsonDefaultValue(false)]
-        [BsonElement("ChildCare")]
+        [BsonElement("ChildCare"), DisplayName("Child Care")]
         public bool ChildCare { get; set; }
 
         [BsonRepresentation(BsonType.Boolean), BsonDefaultValue(false)]
-        [BsonElement("YouthMinistry")]
+        [BsonElement("YouthMinistry"), DisplayName("Youth Ministry")]
         public bool YouthMinistry { get; set; }
 
         [BsonRepresentation(BsonType.Boolean), BsonDefaultValue(false)]
-        [BsonElement("YoungAdultMinistry")]
+        [BsonElement("YoungAdultMinistry"), DisplayName("Young Adult Ministry")]
         public bool YoungAdultMinistry { get; set; }
 
-        [BsonElement("OnlineService")]
         [BsonRepresentation(BsonType.Boolean)]
+        [BsonElement("OnlineService"), DisplayName("Online Service")]
         [BsonDefaultValue(false)]
         public bool OnlineService { get; set; }
     }
