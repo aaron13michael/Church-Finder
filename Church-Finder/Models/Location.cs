@@ -31,15 +31,17 @@ namespace Church_Finder.Models
 
         [DataType(DataType.Date), BsonRepresentation(BsonType.DateTime)]
         [BsonElement("FoundedDate")]
+        [DisplayName("Founded Date")]
         public DateTime FoundedDate { get; set; }
 
         [Range(0, 24), BsonRepresentation(BsonType.Int32), BsonDefaultValue(1)]
         [BsonElement("NumServices")]
+        [DisplayName("Number of Services")]
         public int NumServices { get; set; }
 
-        [DataType(DataType.ImageUrl), BsonDefaultValue("img/logo.png")]
+        [DataType(DataType.ImageUrl)]
         [BsonElement("Image")]
-        public string Image { get; set; }
+        public string Image { get; set; } = "img\\logo.png";
 
 
         // Address fields
@@ -66,7 +68,7 @@ namespace Church_Finder.Models
         // Services available
         [BsonRepresentation(BsonType.Boolean), BsonDefaultValue(false)]
         [BsonElement("Missions")]
-        public bool Missions { get; set; }
+        public bool Missions { get; set; } = false;
 
         [BsonRepresentation(BsonType.Boolean), BsonDefaultValue(false)]
         [BsonElement("CommunityGroups"), DisplayName("Community Groups")]

@@ -15,7 +15,7 @@
     {
         <div class="location-block">
             <p>
-                <img asp-append-version="true" src="@item.Image" /><br/>
+                <div class="location-image"><img asp-append-version="true" src="@item.Image" /></div><br/>
                 <a asp-action="Edit" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a><br />
                 @Html.DisplayFor(modelItem => item.Address1) <br />
                 @{

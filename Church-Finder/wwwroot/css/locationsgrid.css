@@ -2,14 +2,19 @@
   display: grid;
   grid-template-columns: 25% 25% 25% 25%;
   grid-column-gap: 1em;
+  grid-row-gap: 1em;
   grid-template-rows: auto;
   padding-top: 1em; }
   #locations-grid img {
-    width: 200px;
+    max-width: 250px;
+    max-height: 200px;
     margin-bottom: 15px; }
   #locations-grid .location-block {
     border: 1px solid rgba(128, 128, 128, 0.5);
     border-radius: 10%;
     padding: 15px; }
+    #locations-grid .location-block .location-image {
+      width: 250px;
+      height: 200px; }
     #locations-grid .location-block a {
       font-size: 16pt; }

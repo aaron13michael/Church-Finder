@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Church_Finder.Models;
 using GoogleMaps.LocationServices;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -14,12 +16,14 @@ namespace Church_Finder.Services
     public class LocationService
     {
         private readonly IMongoCollection<Location> _locations;
+        public readonly string _imgUploads;
 
-        public LocationService(IConfiguration config)
+        public LocationService(IConfiguration config, IHostingEnvironment env)
         {
             var client = new MongoClient(config.GetConnectionString("ChurchFinderDB"));
             var database = client.GetDatabase("ChurchFinderDB");
             _locations = database.GetCollection<Location>("Locations");
+            _imgUploads = env.WebRootPath;
         }
 
         public async Task<LocationReligionViewModel> GetSearchResults(string religion, string searchString)
@@ -72,7 +76,7 @@ namespace Church_Finder.Services
             }
             catch(System.Net.WebException ex)
             {
-                System.Console.WriteLine("Error getting coordinates {0}", ex.Message);
+                Console.WriteLine("Error getting coordinates {0}", ex.Message);
             }
             await _locations.InsertOneAsync(location);
             return location;
@@ -96,6 +100,7 @@ namespace Church_Finder.Services
         {
             return _locations.CountDocuments(Location => Location.Id == id) > 0;
         }
+
         public List<string> getReligionsList()
         {
             var relQuery = from l in _locations.Find(l => true).ToEnumerable()
