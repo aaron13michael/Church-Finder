@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <RootNamespace>Church_Finder</RootNamespace>
+    <UserSecretsId>5555a3f3-0ef8-409d-a7eb-ad6507ca54f8</UserSecretsId>
   </PropertyGroup>
 
 
