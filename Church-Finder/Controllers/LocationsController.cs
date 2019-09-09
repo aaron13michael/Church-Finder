@@ -25,6 +25,7 @@ namespace Church_Finder.Controllers
         {
             ViewBag.SearchHeader = string.IsNullOrEmpty(searchString) ? "Results" : $"Results for {searchString}";
             ViewBag.Religions = new SelectList(_service.getReligionsList());
+            ViewBag.MemberNumbers = new SelectList(new string[] { "0-100", "100-200", "200-300", "300-400", "400-500", "500+" });
             return View(await _service.GetSearchResults(LocationReligion, searchString));
         }
 

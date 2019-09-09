@@ -7,6 +7,47 @@
         </select>
         <input class="form-control form-control-plaintext form-control-lg mr-2" type="text" name="SearchString" placeholder="enter zip or city,state" />
         <input class="form-control" type="submit" value="search" />
-    </div>
+        <div class="accordion" id="searchAccordion">
+            <div class="card">
+                <div class="card-header" id="searchHeader">
+                    <h2 class="mb-0">
+                        <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#advancedFields">Advanced Search</button>
+                    </h2>
+                </div>
+                <div id="advancedFields" class="collapse" aria-labelledby="searchHeader" data-parent="#searchHeader">
+                    <div class="card-body">
+                        <label asp-for="Name"></label>
+                        <input asp-for="Name"/>
+
+                        <label asp-for="NoMembers"></label>
+                        <input asp-for="NoMembers" /><br />
+
+                        <label asp-for="Missions"></label>
+                        <input asp-for="Missions" />
+
+                        <label asp-for="ChildCare"></label>
+                        <input asp-for="ChildCare"/>
+
+                        <label asp-for="OnlineService"></label>
+                        <input asp-for="OnlineService"/><br />
+
+                        <label asp-for="CommunityGroups"></label>
+                        <input asp-for="CommunityGroups"/>
+
+                        <label asp-for="YouthMinistry"></label>
+                        <input asp-for="YouthMinistry"/>
+
+                        <label asp-for="MarriageCounseling"></label>
+                        <input asp-for="MarriageCounseling" />
+
+                        <label asp-for="YAMinistry" ></label>
+                        <input asp-for="YAMinistry" /><br />
+
+                        <label asp-for="MarriageCounseling"></label>
+                        <input asp-for="MarriageCounseling" />
+                    </div>
+                </div>
+            </div>
+        </div>
 </form>
 
