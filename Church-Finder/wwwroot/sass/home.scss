@@ -24,4 +24,51 @@
         background-color: $btn-blue;
         color: white;
     }
+
+    #LocationReligion {
+        width: calc(13em + 5px);
+    }
+
+    #searchAccordion {
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .card {
+        border: none;
+
+        .advanced-fields-grid {
+            display: grid;
+            grid-template-columns: auto auto auto;
+            grid-template-rows: auto auto auto;
+            text-align: left;
+
+            .advanced-fields-grid-item{
+                padding: 10px;
+            }
+            .advanced-fields-grid-item:nth-child(2) {
+                grid-column: span 2;
+            }
+            .advanced-fields-grid-item:last-child {
+                grid-column: span 3;
+            }
+            label{
+                display: unset;
+                justify-content: unset !important;
+                width: auto;
+            }
+
+        }
+    }
+
+    .card-header {
+        padding: 0;
+        background-color: rgba(0, 0, 0, 0.0);
+        border: none
+    }
+
+    #searchHeader {
+        text-align: left;
+        color: cornflowerblue;
+    }
 }

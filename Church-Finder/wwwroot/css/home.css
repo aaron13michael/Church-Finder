@@ -14,3 +14,32 @@
 #home-form input[type="submit"]:hover {
   background-color: dodgerblue;
   color: white; }
+#home-form #LocationReligion {
+  width: calc(13em + 5px); }
+#home-form #searchAccordion {
+  cursor: pointer;
+  width: 100%; }
+#home-form .card {
+  border: none; }
+  #home-form .card .advanced-fields-grid {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto auto;
+    text-align: left; }
+    #home-form .card .advanced-fields-grid .advanced-fields-grid-item {
+      padding: 10px; }
+    #home-form .card .advanced-fields-grid .advanced-fields-grid-item:nth-child(2) {
+      grid-column: span 2; }
+    #home-form .card .advanced-fields-grid .advanced-fields-grid-item:last-child {
+      grid-column: span 3; }
+    #home-form .card .advanced-fields-grid label {
+      display: unset;
+      justify-content: unset !important;
+      width: auto; }
+#home-form .card-header {
+  padding: 0;
+  background-color: rgba(0, 0, 0, 0);
+  border: none; }
+#home-form #searchHeader {
+  text-align: left;
+  color: cornflowerblue; }
