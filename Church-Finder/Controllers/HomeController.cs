@@ -18,6 +18,7 @@ namespace Church_Finder.Controllers
         public IActionResult Index()
         {
             ViewBag.Religions = new SelectList(_service.getReligionsList());
+            ViewBag.MembersOptions = new SelectList(new string[] { "0-100", "100-300", "300-500", "500+" });
             return View();
         }
 

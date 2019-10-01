@@ -1,57 +1,56 @@
 ﻿@model Church_Finder.Models.LocationReligionViewModel
 
 <form id="home-form" class="form-inline" asp-controller="Locations" asp-action="Index" method="post">
-    <div class="form-group">
-        <select class="form-control from-control-lg mr-4" asp-for="LocationReligion" asp-items="@ViewBag.Religions">
-            <option value="" selected>Religion</option>
-        </select>
-        <input class="form-control form-control-plaintext form-control-lg mr-4" type="text" name="SearchString" placeholder="enter zip or city,state" />
-        <input class="form-control from-control-lg" type="submit" value="search" />
-        <div class="accordion" id="searchAccordion">
-            <div class="card">
-                <div class="card-header" id="searchHeader">
-                    <a data-toggle="collapse" data-target="#advancedFields">Advanced Search</a>
-                </div>
-                <div id="advancedFields" class="collapse" aria-labelledby="searchHeader" data-parent="#searchHeader">
-                    <div class="card-body advanced-fields-grid">
-                        <div class="advanced-fields-grid-item">
-                            <label asp-for="Name"></label>
-                            <input asp-for="Name" />
-                        </div>
-                        <div class="advanced-fields-grid-item">
-                            <label asp-for="NoMembers"></label>
-                            <input asp-for="NoMembers" />
-                        </div>
-                        <div class="advanced-fields-grid-item">
-                            <label asp-for="Missions"></label>
-                            <input asp-for="Missions" />
-                        </div>
-                        <div class="advanced-fields-grid-item">
-                            <label asp-for="ChildCare"></label>
-                            <input asp-for="ChildCare" />
-                        </div>
-                        <div class="advanced-fields-grid-item">
-                            <label asp-for="OnlineService"></label>
-                            <input asp-for="OnlineService" />
-                        </div>
-                        <div class="advanced-fields-grid-item">
-                            <label asp-for="CommunityGroups"></label>
-                            <input asp-for="CommunityGroups" />
-                        </div>
-                        <div class="advanced-fields-grid-item">
-                            <label asp-for="YouthMinistry"></label>
-                            <input asp-for="YouthMinistry" />
-                        </div>
-                        <div class="advanced-fields-grid-item">
-                            <label asp-for="YAMinistry"></label>
-                            <input asp-for="YAMinistry" />
-                        </div>
-                        <div class="advanced-fields-grid-item">
-                            <label asp-for="MarriageCounseling"></label>
-                            <input asp-for="MarriageCounseling" />
-                        </div>
+    <select class="form-control from-control-lg mr-4" asp-for="LocationReligion" asp-items="@ViewBag.Religions">
+        <option value="" selected>Religion</option>
+    </select>
+    <input class="form-control form-control-plaintext form-control-lg mr-4" type="text" name="SearchString" placeholder="enter zip or city,state" />
+    <input class="form-control from-control-lg" type="submit" value="search" />
+    <div class="accordion" id="searchAccordion">
+        <div class="card">
+            <div id="advancedFields" class="collapse" aria-labelledby="searchHeader" data-parent="#searchHeader">
+                <div class="card-body advanced-fields-grid">
+                    <div class="advanced-fields-grid-item form-group">
+                        <label class="mr-2" asp-for="Name"></label><br />
+                        <input class="form-control" asp-for="Name" />
                     </div>
-                <div>
+                    <div class="advanced-fields-grid-item form-group">
+                        <label class="mr-2" asp-for="NoMembers"></label><br />
+                        <select class="form-control" asp-items="@ViewBag.MembersOptions"  asp-for="NoMembers" >
+                        </select>
+                    </div>
+                    <div class="advanced-fields-grid-item form-group form-check-inline">
+                        <label class="form-check-label mr-2" asp-for="Missions"></label>
+                        <input class="form-check-input" asp-for="Missions" />
+                    </div>
+                    <div class="advanced-fields-grid-item form-check-inline">
+                        <label class="form-check-label mr-2" asp-for="ChildCare"></label>
+                        <input class="form-check-input" asp-for="ChildCare" />
+                    </div>
+                    <div class="advanced-fields-grid-item form-check-inline">
+                        <label class="form-check-label mr-2" asp-for="OnlineService"></label>
+                        <input class="form-check-input" asp-for="OnlineService" />
+                    </div>
+                    <div class="advanced-fields-grid-item form-check-inline">
+                        <label class="form-check-label mr-2" asp-for="CommunityGroups"></label>
+                        <input class="form-check-input" asp-for="CommunityGroups" />
+                    </div>
+                    <div class="advanced-fields-grid-item form-check-inline">
+                        <label class="form-check-label mr-2" asp-for="YouthMinistry"></label>
+                        <input class="form-check-input" asp-for="YouthMinistry" />
+                    </div>
+                    <div class="advanced-fields-grid-item form-check-inline">
+                        <label class="form-check-label mr-2" asp-for="YAMinistry"></label>
+                        <input class="form-check-input" asp-for="YAMinistry" />
+                    </div>
+                    <div class="advanced-fields-grid-item form-check-inline">
+                        <label class="form-check-label mr-2" asp-for="MarriageCounseling"></label>
+                        <input class="form-check-input" asp-for="MarriageCounseling" />
+                    </div>
+                </div>
+            </div>
+            <div class="card-header" id="searchHeader">
+                <a data-toggle="collapse" data-target="#advancedFields">Advanced Search</a>
             </div>
         </div>
     </div>
