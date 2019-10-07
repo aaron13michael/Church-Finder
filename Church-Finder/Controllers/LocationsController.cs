@@ -21,12 +21,12 @@ namespace Church_Finder.Controllers
         }
 
         // GET: Locations
-        public async Task<IActionResult> Index(string LocationReligion, string searchString)
+        public async Task<IActionResult> Index(string LocationReligion, string searchString, bool childCare, bool missions, bool onlineService, bool communityGroups, bool youthMinistry, bool marriageCounseling, bool yAMinistry, string name = "", string NoMembers = "")
         {
             ViewBag.SearchHeader = string.IsNullOrEmpty(searchString) ? "Results" : $"Results for {searchString}";
             ViewBag.Religions = new SelectList(_service.getReligionsList());
             ViewBag.MemberNumbers = new SelectList(new string[] { "0-100", "100-200", "200-300", "300-400", "400-500", "500+" });
-            return View(await _service.GetSearchResults(LocationReligion, searchString));
+            return View(await _service.GetSearchResults(LocationReligion, searchString, childCare, missions, onlineService, communityGroups, youthMinistry, marriageCounseling, yAMinistry, name, NoMembers));
         }
 
         // GET: Locations/Details/5

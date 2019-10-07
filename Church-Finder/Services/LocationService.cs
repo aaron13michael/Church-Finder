@@ -26,7 +26,7 @@ namespace Church_Finder.Services
             _imgUploads = env.WebRootPath;
         }
 
-        public async Task<LocationReligionViewModel> GetSearchResults(string religion, string searchString)
+        public async Task<LocationReligionViewModel> GetSearchResults(string religion, string searchString, bool missions, bool childCare, bool onlineService, bool communityGroups, bool youthMinistry, bool marriageCounseling, bool yAMinistry, string name="", string NoMembers="")
         {
             var builder = Builders<Location>.Filter;
             var filter = builder.Empty;
@@ -38,6 +38,26 @@ namespace Church_Finder.Services
             {
                 filter = filter & builder.Eq("Religion", religion);
             }
+            if (!string.IsNullOrEmpty(name))
+            {
+                filter = filter & builder.Where(l => l.Name.Contains(name));
+            }
+            if (!string.IsNullOrEmpty(NoMembers))
+            {
+                string[] range = NoMembers.Split("-");
+
+            }
+
+            if(missions) filter = filter & builder.Eq("Missions", missions);
+
+            if(childCare) filter = filter & builder.Eq("childCare", childCare);
+            if(onlineService) filter = filter & builder.Eq("OnlineService", onlineService);
+            if(communityGroups) filter = filter & builder.Eq("CommunityGroups", communityGroups);
+            if(youthMinistry) filter = filter & builder.Eq("YouthMinistry", youthMinistry);
+            if(marriageCounseling) filter = filter & builder.Eq("MarriageCounseling", marriageCounseling);
+            if(yAMinistry) filter = filter & builder.Eq("YoungAdultMinistry", yAMinistry);
+
+
             var locationReligionVM = new LocationReligionViewModel
             {
                 Religions = new SelectList(getReligionsList()),
